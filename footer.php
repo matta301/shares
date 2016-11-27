@@ -1,16 +1,79 @@
+	
 
+
+
+
+			</div>
+		</main>
+	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <script type="text/javascript" src="plugins/polyfill/dialog-polyfill.js"></script>
     <script type="text/javascript">
 
-			$('.button-collapse').sideNav({
-					menuWidth: 300, // Default is 240
-					edge: 'left', // Choose the horizontal origin
-					closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-					draggable: true // Choose whether you can drag to open on touch screens
-				}
-			);
+    	//var editTrade = $('input[type="checkbox"]');
 
+
+    	$(document).ready(function () { 
+
+    		var addNewDialog = document.querySelector('.add-new-investment');
+		    var showDialogButton = document.querySelector('#show-add-new-dialog');
+		    
+		    if (! addNewDialog.showModal) {
+		    	dialogPolyfill.registerDialog(addNewDialog);
+		    }
+		    
+		    showDialogButton.addEventListener('click', function() {
+		      	addNewDialog.showModal();
+		    });
+		    
+		    addNewDialog.querySelector('.close').addEventListener('click', function() {
+		      addNewDialog.close();
+		    });
+
+
+
+
+	    	var editDialog = document.querySelector('.edit-investment');
+
+
+		    $('.show-edit-dialog').on('click tap', function(){ 
+
+		    	$('.show-edit-dialog').removeClass('show-edit-dialog-active');
+		    	$(this).addClass('show-edit-dialog-active');
+
+		    	var editDialogButton = document.querySelector('.show-edit-dialog-active');
+
+			    if (! editDialog.showModal) {
+			    	dialogPolyfill.registerDialog(editDialog);
+			    }	    
+
+	    	  	
+	      		editDialog.showModal();
+		    	
+
+		    	
+		    });
+
+
+
+	    	editDialog.querySelector('.close-edit').addEventListener('click', function() {
+		      		editDialog.close();
+	    	});
+	    	
+		    
+
+
+		    
+		  
+		    
+		    
+
+
+
+
+
+    	});
 
     </script>
 </body>
