@@ -15,62 +15,21 @@
 		$titleArray = array_unique($titleArray);
 	}
 
+	
 
 
-	$companyName = $epic = $quantity = $price = $stop = $target = $buyDate = '';
+		
+	// Add a new investment
+	$results = addNewInvestment();
 
 
 	
-	//$tradeResults = displayInvestments();
-
-	//echo '<pre>' . var_dump($results) . '</pre>';
-
-	//echo '<pre>' . print_r($results) . '</pre>';
 
 
+	editInvestment();
 
+	//echo '<pre>' . print_r($results, true) . '</pre>';
 
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-		$companyName = test_input($_POST['company-name']);
-		$epic 		 = test_input($_POST['epic']);
-		$quantity 	 = test_input($_POST['quantity']);
-		$price 		 = test_input($_POST['price']);
-		$stop 		 = test_input($_POST['stop']);
-		$target 	 = test_input($_POST['target']);
-		$buyDate 	 = test_input($_POST['buy-date']);
-
-		
-		echo '<pre>' . var_dump($companyName) . '</pre>';
-
-
-		if (! empty($companyName)) {			
-
-			$query = "INSERT INTO `investedin`(`company`, `epic`, `quantity`, `price`, `stop`, `buy_date`, `target`) 
-					  VALUES ('$companyName', '$epic', '$quantity', '$price', '$stop', '$buyDate', '$target')";
-
-
-		  	$insert = $conn->query($query);
-
-		  	if ($insert === TRUE) {
-
-		  		$newRecord = 'A new record has beeen created';
-		  		$open = '';
-		  		
-		  	}else {
-		  		  echo "Error: " . $insert . "<br>" . $conn->error;
-		  	}
-
-		}else {
-
-			$error = "Please fill in the following details";
-			$open = 'open';
-
-		}
-
-
-		
-	}
 
 
 
@@ -78,13 +37,15 @@
 
 ?>
 	
-	<div class="mdl-grid">		
+	<div class="mdl-grid">
+		<?php if (isset($errorMsg)) { echo $errorMsg; } ?>
+
 		<div class="mdl-cell mdl-cell--10-col" style="">
 			<button id="show-add-new-dialog" type="button" class="add-new mdl-button mdl-js-button mdl-button--raised mdl-button--accent"><i class="material-icons">playlist_add</i>Add New Record</button>
 			<?php if (isset($newRecord)) { echo '<div class="new-record">' . $newRecord . '</div>'; } ?>
 		</div>
 		<div class="mdl-cell mdl-cell--10-col" style="">			
-			<table class="matts-trade-table trade-table mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+			<table class="matts-trade-table trade-table mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 				<thead>
 					<tr>
 						<th class="mdl-data-table__cell--non-numeric">Company</th>
@@ -100,74 +61,115 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php displayInvestments(); ?>					
+					<?php displayInvestments(); ?>
 				</tbody>
-			</table>		
+			</table>
 		</div>
 		
 
 		<!-- ADD NEW RECORD TO THE TRADE TABLE -->
-		<dialog class="mdl-dialog add-new-investment" <?php if (isset($open)) { echo $open; } ?>>
+		<dialog class="mdl-dialog add-new-investment" <?php if (isset($results['open'])) { echo $results['open']; } ?>>
 			<div class="close-button close"><i class="material-icons">clear</i></div>
 			<h5 class="mdl-dialog__title">Add New Share</h5>
 			<div class="mdl-dialog__content">				
-				<?php if (isset($error)) { echo $error; } ?>
+				<?php if (isset($results['error'])) { echo $results['error']; } ?>
 				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="company-name" name="company-name">
-						<label class="mdl-textfield__label" for="company-name">Company Name</label>
+						<input class="mdl-textfield__input" type="text" id="add-company-name" name="add-company-name">
+						<label class="mdl-textfield__label" for="add-company-name">Company Name</label>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="epic" name="epic">
-						<label class="mdl-textfield__label" for="epic">Epic</label>
+						<input class="mdl-textfield__input" type="text" id="add-epic" name="add-epic">
+						<label class="mdl-textfield__label" for="add-epic">Epic</label>
 					</div>
 
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="quantity" name="quantity">
-						<label class="mdl-textfield__label" for="quantity">Quantity</label>
+						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="add-quantity" name="add-quantity">
+						<label class="mdl-textfield__label" for="add-quantity">Quantity</label>
 						<span class="mdl-textfield__error">Input is not a number!</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="price" name="price">
-						<label class="mdl-textfield__label" for="price">Price</label>
+						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="add-price" name="add-price">
+						<label class="mdl-textfield__label" for="add-price">Price</label>
 						<span class="mdl-textfield__error">Input is not a number!</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="stop" name="stop">
-						<label class="mdl-textfield__label" for="stop">Stop</label>
+						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="add-stop" name="add-stop">
+						<label class="mdl-textfield__label" for="add-stop">Stop</label>
 						<span class="mdl-textfield__error">Input is not a number!</span>
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="target" name="target">
-						<label class="mdl-textfield__label" for="target">Target</label>
+						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="add-target" name="add-target">
+						<label class="mdl-textfield__label" for="add-target">Target</label>
 						<span class="mdl-textfield__error">Input is not a number!</span>						
 					</div>
 					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="text" id="buy-date" name="buy-date">
-						<label class="mdl-textfield__label" for="buy-date">Buy Date</label>
-					</div>				
-
-
+						<input class="mdl-textfield__input" type="text" id="add-buy-date" name="add-buy-date">
+						<label class="mdl-textfield__label" for="add-buy-date">Buy Date</label>
+					</div>
 					<div>
-						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="submit">
+						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" name="add-button" type="submit" value="submit">
 					</div>
 				</form>
-			</div>			
+			</div>
 		</dialog>
 
 
 		<!-- UPDATE EXISTING RECORD -->
 		<dialog class="mdl-dialog edit-investment" <?php if (isset($open)) { echo $open; } ?>>
 			<div class="close-button close-edit"><i class="material-icons">clear</i></div>
-			<h5 class="mdl-dialog__title">Edit Share</h5>
+			<h5 class="mdl-dialog__title">Edit row</h5>
 			<div class="mdl-dialog__content">
-				
-				<?php if (isset($error)) { echo $error; } ?>
-				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-					
-					<div>
-						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" value="submit">
+				<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">					
+					<input type="hidden" id="row-id" name="row-id" value="">
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="edit-company-name" name="edit-company-name" value="">
+						<label class="mdl-textfield__label" for="edit-company-name">Company Name</label>
 					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused is-upgraded">
+						<input class="mdl-textfield__input" type="text" id="edit-epic" name="edit-epic">
+						<label class="mdl-textfield__label" for="edit-epic">Epic</label>
+					</div>
+
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="edit-quantity" name="edit-quantity">
+						<label class="mdl-textfield__label" for="edit-quantity">Quantity</label>
+						<span class="mdl-textfield__error">Input is not a number!</span>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="edit-price" name="edit-price">
+						<label class="mdl-textfield__label" for="edit-price">Price</label>
+						<span class="mdl-textfield__error">Input is not a number!</span>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="edit-stop" name="edit-stop">
+						<label class="mdl-textfield__label" for="edit-stop">Stop</label>
+						<span class="mdl-textfield__error">Input is not a number!</span>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="edit-target" name="edit-target">
+						<label class="mdl-textfield__label" for="edit-target">Target</label>
+						<span class="mdl-textfield__error">Input is not a number!</span>						
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="edit-buy-date" name="edit-buy-date">
+						<label class="mdl-textfield__label" for="edit-buy-date">Buy Date</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="edit-sell-date" name="edit-sell-date">
+						<label class="mdl-textfield__label" for="edit-sell-date">Sell Date</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="edit-profit-loss" name="edit-profit-loss">
+						<label class="mdl-textfield__label" for="edit-profit-loss">Profit/Loss</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<input class="mdl-textfield__input" type="text" id="edit-profit-loss" name="edit-open-closed">
+						<label class="mdl-textfield__label" for="edit-open-close">Close</label>
+					</div>
+					<div>
+						<input class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" type="submit" name="edit-button" value="submit">
+					</div>		
 				</form>
 			</div>
 			<!-- <div class="mdl-dialog__actions">

@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.green-amber.min.css" />
 	<link rel="stylesheet" type="text/css" href="plugins/polyfill/dialog-polyfill.css">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 	<!--[if lt IE 9]>
@@ -43,9 +44,20 @@
 
 		td.profit-up { background-color: #8BC349; color: #fff; }
 		td.profit-down { background-color: #F44336; color: #fff; }
-
+	
+		th { text-transform: uppercase; }
+		th.edit,
+		td.edit { width: 5%; }
 		.edit i { font-size: 1.3em; }
 		.edit div { cursor: pointer; }
+
+
+		.mdl-textfield--floating-label.is-focused .mdl-textfield__label { opacity: 1; }
+		.mdl-textfield--floating-label .mdl-textfield__label { opacity: 0; }
+
+
+
+
 
 
 	</style>
