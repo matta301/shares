@@ -5,6 +5,7 @@
 
 			</div>
 		</main>
+		 <div class="mdl-layout__obfuscator-right"></div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
@@ -19,7 +20,7 @@
 
 
     		// Add new investment dialog
-    		var addNewDialog = document.querySelector('.add-new-investment');
+    		/*var addNewDialog = document.querySelector('.add-new-investment');
 		    var showDialogButton = document.querySelector('#show-add-new-dialog');
 		    
 		    if (! addNewDialog.showModal) {
@@ -31,7 +32,7 @@
 		    
 		    addNewDialog.querySelector('.close').addEventListener('click', function() {
 		      addNewDialog.close();
-		    });
+		    });*/
 
 
 
@@ -105,7 +106,23 @@
 		    
 
 
-		    $( "#buy-date" ).datepicker();
+	        $('#add-new').click(function(){
+				if($('.mdl-layout__drawer-right').hasClass('active')){
+					$('.mdl-layout__drawer-right').removeClass('active'); 
+			 	}
+			 	else{
+			    	$('.mdl-layout__drawer-right').addClass('active'); 
+			 	}
+			});
+
+			$('.mdl-layout__obfuscator-right').click(function(){
+				if($('.mdl-layout__drawer-right').hasClass('active')){       
+			    	$('.mdl-layout__drawer-right').removeClass('active'); 
+			 	}
+			 	else{
+			    	$('.mdl-layout__drawer-right').addClass('active'); 
+			 	}
+			});
   
 
 
