@@ -61,7 +61,6 @@
 	}
 
 
-
 	// Displays current/histroy equtiy invesments
     function displayInvestments() {
 
@@ -184,11 +183,7 @@
 			  		echo 'Success';
 			  	}else {
 			  		echo "Error: " . $update . "<br>" . $conn->error;
-			  	}
-
-
-
-		
+			  	}		
 
 		};
     }

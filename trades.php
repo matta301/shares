@@ -14,10 +14,6 @@
 		// Remove duplicate report type headings
 		$titleArray = array_unique($titleArray);
 	}
-
-	
-
-
 		
 	// Add a new investment
 	$results = addNewInvestment();

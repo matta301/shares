@@ -13,27 +13,44 @@
 
 		// Remove duplicate report type headings
 		$titleArray = array_unique($titleArray);
+
+
+		//echo '<pre>' . print_r($reportType, true) . '</pre>';
 	}
 
-	// echo '<pre>' . print_r($titleArray, true) . '</pre>';
+	
 
 ?>	
 
 	<div>
 		<ul>
 			<?php
-				foreach ($titleArray as $oneTitle) {
-					$output  = '<li class="mdl-list__item">';
-					$output .=  	'<span class="mdl-list__item-primary-content">';
-					$output .=		'<i class="material-icons mdl-list__item-icon">description</i>';
-					$output .=  		$oneTitle;
-					$output .= '</li>';
+				foreach ($titleArray as $oneTitle) { ?>
+					<li class="mdl-list__item">
+						<span class="mdl-list__item-primary-content">
+						<i class="material-icons mdl-list__item-icon">description</i>
+						<?php echo $oneTitle; ?>
+					</li>
+
+					
+					<?php 
+						//echo $reportType['date']; 
+						foreach ($json as $value) {
+
+							//echo '<pre>' . print_r($value, true) . '</pre>';
+
+							if ($oneTitle == $value['report-type']) {
+								echo '<h5>' . $value['date'] . '</h5>';
+								echo '<p>' . $value['companies'] . '</p>';
+							}
+							
+						}
+
+					?>
 
 
-					echo $output; 
-				}
-			?>
-			
+
+			<?php } ?>
 		</ul>
 	</div>
 
