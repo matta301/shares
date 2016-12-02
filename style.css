@@ -1,0 +1,49 @@
+	i { margin-right: 0.5em; }
+
+
+	/* trades.php 		*/
+	.trade-table { width: 100%; }
+	.mdl-data-table th,
+	.mdl-data-table td, 
+	.mdl-data-table td { text-align: left; }
+
+
+
+	.mdl-dialog { width: 500px; }
+
+
+	.close-button { float: right; cursor: pointer; }
+	.add-new { float: left; }
+	
+
+
+	th { text-transform: uppercase; }
+	td.balance { /* width: 5%;  */}
+	td.profit-up { background-color: #8BC349; color: #fff; }
+	td.profit-down { background-color: #F44336; color: #fff; }
+	table i.material-icons { font-size: 1.3em; padding: 0; margin: 0; }
+	.tabledit-edit-button { border: none; background: none; cursor: pointer; }
+
+	.tabledit-save-button {background: green;}
+
+
+	.mdl-textfield--floating-label.is-focused .mdl-textfield__label { opacity: 1; }
+	.mdl-textfield--floating-label .mdl-textfield__label { opacity: 0; }
+
+
+	/*	Right Drawer 		*/
+	.mdl-layout__drawer-right.active { width: 25%; }
+	.mdl-layout__drawer-right { display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column;  flex-direction: column; -webkit-flex-wrap: nowrap; -ms-flex-wrap: nowrap;  flex-wrap: nowrap; width: 240px; height: 100%;  max-height: 100%; position: absolute; top: 0;  right: 0;box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12); box-sizing: border-box; border-right: 1px solid #e0e0e0; background: #fafafa; -webkit-transform: translateX(250px); -ms-transform: translateX(250px); transform: translateX(250px); -webkit-transform-style: preserve-3d; transform-style: preserve-3d; will-change: transform; -webkit-transition-duration: .2s; transition-duration: .2s; -webkit-transition-timing-function: cubic-bezier(.4,0,.2,1); transition-timing-function: cubic-bezier(.4,0,.2,1); -webkit-transition-property: -webkit-transform; transition-property: transform; color: #424242; overflow: visible; overflow-y: auto; z-index: 5; }
+	.active { -webkit-transform: translateX(0); -ms-transform: translateX(0); transform: translateX(0); }
+	.mdl-layout__obfuscator-right { background-color: transparent; position: absolute; top: 0; left: 0;  height: 100%; width: 100%; z-index: 4; visibility: hidden; -webkit-transition-property: background-color; transition-property: background-color;  -webkit-transition-duration: .2s; transition-duration: .2s; -webkit-transition-timing-function: cubic-bezier(.4,0,.2,1);  transition-timing-function: cubic-bezier(.4,0,.2,1); } 
+	.mdl-layout__drawer-right.active~.mdl-layout__obfuscator-right { background-color: rgba(0,0,0,.5); visibility: visible; }
+	.mdl-layout__drawer-right>.mdl-layout-title { line-height: 56px; padding-left: 16px; }
+
+
+	/*	Report Accordian 	*/
+	#accordion li { display: block; min-height: 3rem; line-height: 3rem; padding:0.5em; background-color: #fff; border: 1px solid #ddd; }
+	#accordion .accordion-toggle { cursor: pointer; margin: 0; padding: 0 3em; }
+	#accordion .accordion-content { display: none; padding: 0 3em; }
+	#accordion .accordion-content.default { display: block; }
+	#accordion pre { font-family: "Roboto","Helvetica","Arial",sans-serif; }
+	

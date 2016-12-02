@@ -8,36 +8,21 @@
 		 <div class="mdl-layout__obfuscator-right"></div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-    <script type="text/javascript" src="plugins/polyfill/dialog-polyfill.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <script src="plugins/polyfill/dialog-polyfill.js"></script>
+
+    <script src="plugins/tabledit/jquery.tabledit.min.js"></script>
     <script type="text/javascript">
 
     	//var editTrade = $('input[type="checkbox"]');
 
 
-    	$(document).ready(function () { 
+    	$(document).ready(function () {
 
-
-    		// Add new investment dialog
-    		/*var addNewDialog = document.querySelector('.add-new-investment');
-		    var showDialogButton = document.querySelector('#show-add-new-dialog');
-		    
-		    if (! addNewDialog.showModal) {
-		    	dialogPolyfill.registerDialog(addNewDialog);
-		    }		    
-		    showDialogButton.addEventListener('click', function() {
-		      	addNewDialog.showModal();
-		    });
-		    
-		    addNewDialog.querySelector('.close').addEventListener('click', function() {
-		      addNewDialog.close();
-		    });*/
-
-
+    		
 
 		    // Edit portfolio dialog
-	    	var editDialog = document.querySelector('.edit-investment');
+	    	/*var editDialog = document.querySelector('.edit-investment');
 		    $('.show-edit-dialog').on('click tap', function(){ 
 
 		    	$('.show-edit-dialog').removeClass('show-edit-dialog-active');
@@ -52,7 +37,7 @@
 		    });
 	    	editDialog.querySelector('.close-edit').addEventListener('click', function() {
 		      		editDialog.close();
-	    	});
+	    	});*/
 
 
 
@@ -102,30 +87,45 @@
 
 
 	    	});
-    
+
+			   
 		    
 
+			function reportAccordian() {
 
-	        $('#add-new').click(function(){
-				if($('.mdl-layout__drawer-right').hasClass('active')){
-					$('.mdl-layout__drawer-right').removeClass('active'); 
-			 	}
-			 	else{
-			    	$('.mdl-layout__drawer-right').addClass('active'); 
-			 	}
-			});
+		        $('#add-new').click(function(){
+					if($('.mdl-layout__drawer-right').hasClass('active')){
+						$('.mdl-layout__drawer-right').removeClass('active'); 
+				 	}
+				 	else{
+				    	$('.mdl-layout__drawer-right').addClass('active'); 
+				 	}
+				});
 
-			$('.mdl-layout__obfuscator-right').click(function(){
-				if($('.mdl-layout__drawer-right').hasClass('active')){       
-			    	$('.mdl-layout__drawer-right').removeClass('active'); 
-			 	}
-			 	else{
-			    	$('.mdl-layout__drawer-right').addClass('active'); 
-			 	}
-			});
-  
+				$('.mdl-layout__obfuscator-right').click(function(){
+					if($('.mdl-layout__drawer-right').hasClass('active')){       
+				    	$('.mdl-layout__drawer-right').removeClass('active'); 
+				 	}
+				 	else{
+				    	$('.mdl-layout__drawer-right').addClass('active'); 
+				 	}
+				});	  
+
+				$('#accordion').find('.accordion-toggle').click(function(){
+		
+					//Expand or collapse this panel
+					$(this).next().slideToggle('fast');
+		
+					//Hide the other panels
+					$(".accordion-content").not($(this).next()).slideUp('fast');
+				});
+			}
 
 
+			reportAccordian();
+			tableEdit();
+
+			
 
     	});
 

@@ -22,36 +22,38 @@
 
 ?>	
 
-	<div>
-		<ul>
-			<?php
-				foreach ($titleArray as $oneTitle) { ?>
-					<li class="mdl-list__item">
-						<span class="mdl-list__item-primary-content">
-						<i class="material-icons mdl-list__item-icon">description</i>
-						<?php echo $oneTitle; ?>
-					</li>
+	<div class="mdl-grid">
+		<div class="mdl-cell mdl-cell--12-col">
+			<ul id="accordion">
+				<?php
+					foreach ($titleArray as $oneTitle) { ?>
 
-					
-					<?php 
-						//echo $reportType['date']; 
-						foreach ($json as $value) {
+						<li>
+							<div class="accordion-toggle">
+								<i class="material-icons">description</i>
+								<?php echo $oneTitle; ?>
+							</div>
+							<div class="accordion-content">
+								<?php
+									foreach ($json as $value) {
+										//echo '<pre>' . print_r($value, true) . '</pre>';
 
-							//echo '<pre>' . print_r($value, true) . '</pre>';
+										if ($oneTitle == $value['report-type']) {
+											echo '<h5>' . $value['date'] . '</h5>';
 
-							if ($oneTitle == $value['report-type']) {
-								echo '<h5>' . $value['date'] . '</h5>';
-								echo '<p>' . $value['companies'] . '</p>';
-							}
-							
-						}
+											$companies = $value['companies'];
 
-					?>
+											echo '<pre>' . print_r($companies, true) . '</pre>';
 
-
-
-			<?php } ?>
-		</ul>
+											//echo '<p>' . $companies . '</p>';
+										}
+									}
+								?>
+							</div>
+						</li>
+				<?php } ?>
+			</ul>
+		</div>
 	</div>
 
 

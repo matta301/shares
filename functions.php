@@ -20,7 +20,6 @@
 		return $data;
 	}
 
-
 	// Adds new investment to trade diary
 	function addNewInvestment() {
 
@@ -37,6 +36,22 @@
 			$stop 		 = test_input($_POST['add-stop']);
 			$target 	 = test_input($_POST['add-target']);
 			$buyDate 	 = test_input($_POST['add-buy-date']);
+
+
+
+			$inputsComplete = array();
+
+		/*	if (empty($companyName)) {
+				$errorMsgName[] = ('error-name' => 'Please supply a company name');
+			}
+			if (empty($epic)) {
+				$errorMsgEpice[] = ('error-epic' => 'Please supply a company epic');
+			}*/
+
+
+
+
+
 
 			if (! empty($companyName)) {
 
@@ -75,8 +90,11 @@
 			foreach ($result as $value) { ?>
 
 				<!-- Output for all table data -->
-				<tr>
-					<td class="company mdl-data-table__cell--non-numeric"><?php echo $value['company']; ?></td>
+				<tr id="<?php echo $value["s_id"]; ?>" class="">
+					<td class="id" id="<?php echo $value["s_id"]; ?>"><?php echo $value["s_id"]; ?></td>
+					<td class="company mdl-data-table__cell--non-numeric">
+						<span class="tabledit-span"><?php echo $value['company']; ?></span>
+					</td>
 					<td class="epic mdl-data-table__cell--non-numeric"><?php echo strtoupper($value['epic']); ?></td>
 					<td class="quantity"><?php echo $value['quantity']; ?></td>
 					<td class="price"><?php echo $value['price']; ?></td>
@@ -91,9 +109,6 @@
 					<?php }elseif ($value['profit_loss'] == null || $value['profit_loss'] == '' || $value['profit_loss'] == 0) {?>
 						<td class="balance"></td>
 					<?php } ?>
-					<td data-sid="<?php echo $value["s_id"]; ?>" class="edit edit-button s_id<?php echo $value["s_id"]; ?>">
-						<div class="show-edit-dialog"><i class="material-icons">create</i></div>
-					</td>
 				</tr>
 
 				<?php }				
@@ -115,9 +130,7 @@
     	$editCompany = $editEpic = $editQuantity = $editPrice = $editStop = $editTarget = $editBuyDate = $editId = '';
 
 
-    	if (isset($_POST['edit-button'])) {
-
-
+    	if ($input['action'] == 'edit') {
     		
     		$editCompany 	= test_input($_POST['edit-company-name']);			
 			$editEpic 		= test_input($_POST['edit-epic']);
@@ -127,12 +140,11 @@
 			$editTarget 	= test_input($_POST['edit-target']);
 			$editBuyDate 	= test_input($_POST['edit-buy-date']);
 			$editSellDate 	= test_input($_POST['edit-sell-date']);
-			$editProfitLoss	= test_input($_POST['edit-profit-loss']);
-			
+			$editProfitLoss	= test_input($_POST['edit-profit-loss']);			
 			$editId 		= test_input($_POST['row-id']);
 
 
-			/*var_dump($editCompany);
+			var_dump($editCompany);
 			var_dump($editEpic);
 			var_dump($editQuantity);
 			var_dump($editPrice);
@@ -140,50 +152,32 @@
 			var_dump($editStop);
 			var_dump($editTarget);
 			var_dump($editBuyDate);
-			var_dump($editSellDate);
-			var_dump($editOpen);
-			var_dump($editId);*/
-			
+			var_dump($editSellDate);				
+			var_dump($editId);
 
-			//exit();
+			$query = "UPDATE `investedin` 
+					  SET `company`='$editCompany',
+					  	  `epic`='$editEpic',
+					  	  `quantity`='$editQuantity',
+					  	  `price`='$editPrice',
+					  	  `stop`='$editStop',
+					  	  `target`='$editTarget',
+					  	  `buy_date`='$editBuyDate',
+					  	  `sell_date`='$editSellDate',
+					  	  `profit_loss`='$editProfitLoss'
+					  	  
 
-
-
-				var_dump($editCompany);
-				var_dump($editEpic);
-				var_dump($editQuantity);
-				var_dump($editPrice);
-				var_dump($editCompany);
-				var_dump($editStop);
-				var_dump($editTarget);
-				var_dump($editBuyDate);
-				var_dump($editSellDate);				
-				var_dump($editId);
-
-				$query = "UPDATE `investedin` 
-						  SET `company`='$editCompany',
-						  	  `epic`='$editEpic',
-						  	  `quantity`='$editQuantity',
-						  	  `price`='$editPrice',
-						  	  `stop`='$editStop',
-						  	  `target`='$editTarget',
-						  	  `buy_date`='$editBuyDate',
-						  	  `sell_date`='$editSellDate',
-						  	  `profit_loss`='$editProfitLoss'
-						  	  
-
-						  WHERE `s_id` = '$editId'";
+					  WHERE `s_id` = '$editId'";
 
 
-				$update = $conn->query($query);
+			$update = $conn->query($query);				
 
-				//exit();
+			if ($update === TRUE) {			  		
 
-				if ($update === TRUE) {			  		
-			  		echo 'Success';
-			  	}else {
-			  		echo "Error: " . $update . "<br>" . $conn->error;
-			  	}		
+		  		echo 'Success';
+		  	}else {
+		  		echo "Error: " . $update . "<br>" . $conn->error;
+		  	}		
 
 		};
     }
