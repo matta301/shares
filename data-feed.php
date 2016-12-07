@@ -45,10 +45,17 @@
 
     		// Aqcuires the date from the sting
     		$date = preg_match('(\s\d+\/\d+\/\d+)', $data, $matches);
+
     		
     		$dueDate 	 	 = trim($matches[0]);
 			$reportTitle 	 = trim($split[0]);
 			$reportCompanies = trim($split[1]);
+
+			// Splits the company name and epic and stores it to array below
+			$companyName = preg_split("(\(.*)", $reportCompanies);
+			$companyEpic = preg_split("/(.*\()/", $reportCompanies);
+			$arraysJoined = array_combine(array_filter($companyEpic), array_filter($companyName));
+
 
     		// Reorders and adds new data into an array assigned with key values 
     		// 1) element id  
@@ -59,8 +66,8 @@
 	    					'id' => $id,
 	    					'date' => $dueDate,
 	    					'report-type' => $reportTitle,
-	    					'companies' => $reportCompanies,
-					 	);		
+	    					'companies' => $arraysJoined,
+					 	);
     	}
 
     	// Writes all data to data.json file

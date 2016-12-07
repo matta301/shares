@@ -11,7 +11,7 @@
   	<script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script src="plugins/polyfill/dialog-polyfill.js"></script>
 
-    <script src="plugins/tabledit/jquery.tabledit.min.js"></script>
+    <!-- <script src="plugins/tabledit/jquery.tabledit.min.js"></script>-->
     <script type="text/javascript">
 
     	//var editTrade = $('input[type="checkbox"]');
@@ -44,7 +44,6 @@
 
 	    	var editButton  	 = $('.edit-button');
 	    	var activeTableRow 	 = $('.edit-table-row');
-
 	    	var editCompanyInput = $('.edit-company');
 		    
 	    	
@@ -84,8 +83,6 @@
 	    		document.getElementById('edit-buy-date').value = buyDate;
 	    		document.getElementById('edit-sell-date').value = sellDate;
 	    		document.getElementById('row-id').value = id;
-
-
 	    	});
 
 			   
@@ -122,10 +119,34 @@
 			}
 
 
-			reportAccordian();
-			tableEdit();
+
+			// Sets the alert icon No. in the header section, depending on how many reports are due out for that month
+			var alertsIcon  = document.getElementById('alerts')
+			var alerts 		= document.getElementsByClassName('report-due')
+			var noOfReports = alerts.length
+
+			alertsIcon.setAttribute('data-badge', noOfReports)
+
+
+
 
 			
+
+
+		/*	var elements = $('.accordion-content');
+
+			for (var i = 0; i > elements.length; i++) {
+				
+				console.log(elements[i]);
+
+			};*/
+
+
+
+
+
+			reportAccordian();
+			//tableEdit();			
 
     	});
 

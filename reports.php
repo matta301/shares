@@ -13,10 +13,12 @@
 
 		// Remove duplicate report type headings
 		$titleArray = array_unique($titleArray);
-
-
-		//echo '<pre>' . print_r($reportType, true) . '</pre>';
 	}
+
+
+
+	$todaysDate = date('d/m/Y');
+	echo $todaysDate;
 
 	
 
@@ -36,16 +38,14 @@
 							<div class="accordion-content">
 								<?php
 									foreach ($json as $value) {
-										//echo '<pre>' . print_r($value, true) . '</pre>';
-
 										if ($oneTitle == $value['report-type']) {
-											echo '<h5>' . $value['date'] . '</h5>';
 
-											$companies = $value['companies'];
+											// If the report due date has passed then it will not display in the dashboard
+											if ($value['date'] >= $todaysDate) { ?>											
 
-											echo '<pre>' . print_r($companies, true) . '</pre>';
-
-											//echo '<p>' . $companies . '</p>';
+												<h5><?php echo $value['date']; ?></h5>
+												<pre><?php echo $value['companies']; ?></pre>
+									  <?php }
 										}
 									}
 								?>

@@ -35,7 +35,7 @@
 				<span class="mdl-layout-title">MJ Arnold Associates Equity Fund</span>
 		    	<div class="mdl-layout-spacer"></div>
 	      		<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">          			
-    				<div class="material-icons mdl-badge" data-badge="1">notifications</div>	        		
+    				<div id="alerts" class="material-icons mdl-badge" data-badge="">notifications</div>	        		
 					<div class="mdl-textfield__expandable-holder">
 						<input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
 					</div>
