@@ -28,6 +28,9 @@
 		// Init array that will merge all data
 		$dataMerged = array();
 
+		$nonCompanyInfo = array('International economic announcements', 'United Kingdom economic announcements');
+
+
     	foreach ($results as $value) {
 
     		$dataMerged[] = array_merge($value);    	
@@ -37,7 +40,7 @@
     	foreach ($dataMerged as $value) {
 
     		// Assigns array values to variables to be used in new array when writing to JSON
-    		$id = $value[1];
+    		$id   = $value[1];
     		$data = trim($value[0]);
     		
     		// Removes the date from the data string and leaves report type heading and list of companies
@@ -45,17 +48,19 @@
 
     		// Aqcuires the date from the sting
     		$date = preg_match('(\s\d+\/\d+\/\d+)', $data, $matches);
-
     		
     		$dueDate 	 	 = trim($matches[0]);
 			$reportTitle 	 = trim($split[0]);
 			$reportCompanies = trim($split[1]);
 
-			// Splits the company name and epic and stores it to array below
+
+			// Splits the string at various parts 
 			$companyName = preg_split("(\(.*)", $reportCompanies);
 			$companyEpic = preg_split("/(.*\()/", $reportCompanies);
-			$arraysJoined = array_combine(array_filter($companyEpic), array_filter($companyName));
+			$companyEpic = str_replace(')', '', $companyEpic);
 
+			// Combines the company's epic and name						
+			$arraysJoined = array_combine(array_filter($companyEpic), array_filter($companyName));
 
     		// Reorders and adds new data into an array assigned with key values 
     		// 1) element id  
@@ -68,12 +73,13 @@
 	    					'report-type' => $reportTitle,
 	    					'companies' => $arraysJoined,
 					 	);
+
+			echo '<pre>' . print_r($values, true) . '</pre>';
     	}
 
     	// Writes all data to data.json file
 		file_put_contents('data.json', json_encode($values, JSON_FORCE_OBJECT));
 	}
-
 
 	// Function that gathers info from HL
 	financialReportAPI();

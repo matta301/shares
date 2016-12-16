@@ -30,7 +30,7 @@
 				<?php
 					foreach ($titleArray as $oneTitle) { ?>
 
-						<li>
+						<li class="report-item">
 							<div class="accordion-toggle">
 								<i class="material-icons">description</i>
 								<?php echo $oneTitle; ?>
@@ -44,7 +44,16 @@
 											if ($value['date'] >= $todaysDate) { ?>											
 
 												<h5><?php echo $value['date']; ?></h5>
-												<pre><?php echo $value['companies']; ?></pre>
+												<!-- <pre><?php //echo $value['companies']; ?></pre> -->
+
+												<?php 
+
+													foreach ($value['companies'] as $key => $value) {
+														
+														echo '<p>' . $key . ' ' . $value . '</p>';
+													}													
+
+												?>
 									  <?php }
 										}
 									}
