@@ -10,6 +10,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script src="plugins/polyfill/dialog-polyfill.js"></script>
+    <script type="text/javascript" src="js/tradaryMaster.js"></script>
 
     <!-- <script src="plugins/tabledit/jquery.tabledit.min.js"></script>-->
     <script type="text/javascript">
@@ -17,27 +18,26 @@
     	//var editTrade = $('input[type="checkbox"]');
 
 
+
+
+
+
     	$(document).ready(function () {
 
-    		
+    		// Called from tradayMaster.js
+    		reportHighlighter();
+			reportAccordian();
 
-		    // Edit portfolio dialog
-	    	/*var editDialog = document.querySelector('.edit-investment');
-		    $('.show-edit-dialog').on('click tap', function(){ 
 
-		    	$('.show-edit-dialog').removeClass('show-edit-dialog-active');
-		    	$(this).addClass('show-edit-dialog-active');
 
-		    	var editDialogButton = document.querySelector('.show-edit-dialog-active');
 
-			    if (! editDialog.showModal) {
-			    	dialogPolyfill.registerDialog(editDialog);
-			    }
-	      		editDialog.showModal();		    	
-		    });
-	    	editDialog.querySelector('.close-edit').addEventListener('click', function() {
-		      		editDialog.close();
-	    	});*/
+
+
+
+
+
+
+
 
 
 
@@ -88,66 +88,25 @@
 			   
 		    
 
-			function reportAccordian() {
-
-		        $('#add-new').click(function(){
-					if($('.mdl-layout__drawer-right').hasClass('active')){
-						$('.mdl-layout__drawer-right').removeClass('active'); 
-				 	}
-				 	else{
-				    	$('.mdl-layout__drawer-right').addClass('active'); 
-				 	}
-				});
-
-				$('.mdl-layout__obfuscator-right').click(function(){
-					if($('.mdl-layout__drawer-right').hasClass('active')){       
-				    	$('.mdl-layout__drawer-right').removeClass('active'); 
-				 	}
-				 	else{
-				    	$('.mdl-layout__drawer-right').addClass('active'); 
-				 	}
-				});	  
-
-				$('#accordion').find('.accordion-toggle').click(function(){
-		
-					//Expand or collapse this panel
-					$(this).next().slideToggle('fast');
-		
-					//Hide the other panels
-					$(".accordion-content").not($(this).next()).slideUp('fast');
-				});
-			}
+			
 
 
 
 			// Sets the alert icon No. in the header section, depending on how many reports are due out for that month
-			var alertsIcon  = document.getElementById('alerts')
+			/*var alertsIcon  = document.getElementById('alerts')
 			var alerts 		= document.getElementsByClassName('report-due')
 			var noOfReports = alerts.length
 
-			alertsIcon.setAttribute('data-badge', noOfReports)
+			alertsIcon.setAttribute('data-badge', noOfReports)*/
 
 
 
 
-			
-
-
-		/*	var elements = $('.accordion-content');
-
-			for (var i = 0; i > elements.length; i++) {
-				
-				console.log(elements[i]);
-
-			};*/
+		
 
 
 
-
-
-			reportAccordian();
-			//tableEdit();			
-
+		
     	});
 
     </script>

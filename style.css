@@ -19,16 +19,18 @@
 
 	th { text-transform: uppercase; }
 	td.balance { /* width: 5%;  */}
-	td.profit-up { background-color: #8BC349; color: #fff; }
+	td.profit-up { background-color: #93C47D; color: #fff; }
 	td.profit-down { background-color: #F44336; color: #fff; }
 	table i.material-icons { font-size: 1.3em; padding: 0; margin: 0; }
 	.tabledit-edit-button { border: none; background: none; cursor: pointer; }
 
-	.tabledit-save-button {background: green;}
+	.tabledit-save-button { background: green; }
 
 
 	.mdl-textfield--floating-label.is-focused .mdl-textfield__label { opacity: 1; }
 	.mdl-textfield--floating-label .mdl-textfield__label { opacity: 0; }
+
+	
 
 
 	/*	Right Drawer 		*/

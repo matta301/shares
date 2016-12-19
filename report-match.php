@@ -1,15 +1,21 @@
-<?php 
+<?php
 	
 	include 'header.php';
 
-	$reports = matchingCompanies($json);
+	
 
+	$reportsDue = matchingCompanies($json);
 
+?>
 
+<div class="mdl-grid">
+	
+	<?php foreach ($reportsDue as $key => $value) { ?>
+		 	
+	 	<p><?php echo $value; ?></p>
 
-?>	
+	<?php } ?>				
 
-
-
+</div>
 
 <?php include 'footer.php'; ?>

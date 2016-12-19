@@ -11,10 +11,6 @@
 	// decode the JSON into an associative array
 	$json = json_decode($file, true);
 
-
-
-
-
 	// Create connection
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 	// Check connection
@@ -201,91 +197,51 @@
 
 		//echo '<pre>' . print_r($json, true) . '</pre>';
 
-    	$epicArray = array();
-    	$nameArray = array();
+    	
 		// Returns the name of all the companies that is listed in the portfolio
     	$sql = "SELECT `company`,`epic` FROM `investedin`";
 		$result = $conn->query($sql);
 
 		// Array that holds non business related names
-		$nonCompanyInfo = array('International economic announcements', 'United Kingdom economic announcements');
+		$nonCompanyInfo = array('International economic announcements', 'United Kingdom economic announcements');		
 
+		foreach ($json as $key => $jsonCompany) {
 
-		foreach ($json as $jsonCompany) {
+			$compReportType  = $jsonCompany['report-type'];
+			$compDueDate 	 = $jsonCompany['date'];
+			$compName 		 = $jsonCompany['companies'];
+
+			
 	    			
 			// This is where non company news is filtered out from the array above. If there are any announcements
 			// from within the specified array above they will not show in the following below.
 			if (!in_array($jsonCompany['report-type'], $nonCompanyInfo)) {
 
-    			// To get the company name
-    			$companyDetails = preg_split("(\(.*)", $jsonCompany['companies']);
-				$name = array_unique($companyDetails);
-			   	$name = array_filter($companyDetails);
+				echo '<pre>' . print_r($compReportType, true) . '</pre>';
+				
 
-				// To get the company Epic
-				$companyEpic = preg_split("/(.*\()/", $jsonCompany['companies']);
-			   	$companyEpic = array_unique($companyEpic);
-			   	$companyEpic = array_filter($companyEpic);
+				foreach ($jsonCompany['companies'] as $key => $jsonCompanyNames) {
 
-			   	// Epic stored to an array
-			   	foreach ($companyEpic as $epic) {
-			   		$epicArray[] = '(' . $epic;
-			   	}
+					//echo '<pre>' . print_r($jsonCompanyNames, true) . '</pre>';
 
-			   	// Company Name stored to an array
-			   	foreach ($name as $value) {
-		   			$nameArray[] = $value;
-			   	}
+					//exit();
+
+			   		if ($result->num_rows > 0) {
+			    		foreach ($result as $folioCompany) {
+							
+			    			$ownCompanies = strtolower($folioCompany['company']);
+
+			    			if (strpos(strtolower($jsonCompanyNames), $ownCompanies)) {
+
+			    				$totalReports[] = $jsonCompanyNames;
+			    				//echo '<pre>' . print_r($totalReports, true) . '</pre>';
+			    			}
+						}
+					}
+				}
     		}
    		}
 
-		// Combine arrays
-		$arraysJoined = array_combine($epicArray, $nameArray);
-		
-		// Total matches set to zero
-		$totalMatched = 0;
-		
-		foreach ($arraysJoined as $key => $listofCompanies) {
-
-			$jsonEpic 	 = strtolower($key);
-			$jsonCompany = strtolower($listofCompanies);
-
-			//echo $jsonEpic . '<br />';
-			// echo "\n\n" . 'Company Epic from Report List' . strtolower($key) . '<br />';
-
-
-    		if ($result->num_rows > 0) {
-	    		foreach ($result as $folioCompany) {
-					
-	    			$ownCompanies = strtolower($folioCompany['epic']);
-
-	    			//echo 'Company Epic in Folio: ' . $ownCompanies . '<br />';	    			
-
-	    			if (strpos($jsonEpic, $ownCompanies)) {
-
-	    				$totalMatched += 1;
-	    				echo '<p class="report-due">Report Due: ' . $jsonEpic . ' ' . $jsonCompany . '</p>';
-	    			}	    			
-    			}
-   			}
-    	}
-    	
-    	/*
-    		echo '<pre>' . print_r(array_unique($arraysJoined), true) . '</pre>';
-	    	echo 'Total Epics: ' . count($epicArray) . '<br/>';
-	    	echo 'Total Names: ' . count($nameArray) . '<br/>';
-	    	echo  'After arrays are joined: ' . count($arraysJoined);
-    	*/
-
-		/*
-			echo '<pre>' .  print_r($folioCompany,true)  . '</pre>';
-			echo "\n\n" . 'Company Epic from Report List' . strtolower($key) . '<br />';
-
-		*/
-
-    	
-
+   		return $totalReports;
     }
-
-
 ?>

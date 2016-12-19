@@ -22,48 +22,44 @@
 
 	
 
-?>	
+?>
+<div class="mdl-grid">
+	<div class="mdl-cell mdl-cell--12-col">
+		<ul id="accordion">
+			<?php
+				foreach ($titleArray as $oneTitle) { 
+					$oneTitleId = strtolower(str_replace(' ', '-', $oneTitle));
+			?>
 
-	<div class="mdl-grid">
-		<div class="mdl-cell mdl-cell--12-col">
-			<ul id="accordion">
-				<?php
-					foreach ($titleArray as $oneTitle) { ?>
+					<li id="<?php echo $oneTitleId; ?>" class="report-item">
+						<div class="accordion-toggle">
+							<i class="material-icons">description</i>
+							<?php echo $oneTitle; ?>
+						</div>
+						<div class="accordion-content">
+							<?php
+								foreach ($json as $value) {
+									if ($oneTitle == $value['report-type']) {
 
-						<li class="report-item">
-							<div class="accordion-toggle">
-								<i class="material-icons">description</i>
-								<?php echo $oneTitle; ?>
-							</div>
-							<div class="accordion-content">
-								<?php
-									foreach ($json as $value) {
-										if ($oneTitle == $value['report-type']) {
+										// If the report due date has passed then it will not display in the dashboard
+										if ($value['date'] >= $todaysDate) { ?>
 
-											// If the report due date has passed then it will not display in the dashboard
-											if ($value['date'] >= $todaysDate) { ?>											
-
-												<h5><?php echo $value['date']; ?></h5>
-												<!-- <pre><?php //echo $value['companies']; ?></pre> -->
-
-												<?php 
-
-													foreach ($value['companies'] as $key => $value) {
-														
-														echo '<p>' . $key . ' ' . $value . '</p>';
-													}													
-
-												?>
-									  <?php }
-										}
+											<h5><?php echo $value['date']; ?></h5>
+											<?php
+												foreach ($value['companies'] as $key => $value) {														
+													echo '<p class="report">(' . trim($key) . ') ' . $value . '</p>';
+												}
+											?>
+								  <?php }
 									}
-								?>
-							</div>
-						</li>
-				<?php } ?>
-			</ul>
-		</div>
+								}
+							?>
+						</div>
+					</li>
+			<?php } ?>
+		</ul>
 	</div>
+</div>
 
 
 
