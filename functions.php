@@ -2,7 +2,7 @@
 
 	$servername = "localhost";
 	$username = "root";
-	$password = "251458760";
+	$password = "password";
 	$dbname = "shareplanner";
 
 
